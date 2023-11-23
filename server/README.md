@@ -1,21 +1,21 @@
 # 后端开发文档
 
-## 使用语言
+## 1. 使用语言
 
 考虑到`Python 3.12`刚刚发布一个月，许多第三方库仍未适配，因此采用`Python 3.11`作为后端开发的语言。
 
 请使用虚拟环境（如`venv`,`conda`）隔离开发环境，避免版本冲突。
 
-## 使用框架
+## 2. 使用框架
 
 1. [FastAPI](https://fastapi.tiangolo.com/tutorial/)
 2. [Pydantic](https://docs.pydantic.dev/latest/)
 
 其中，`FastAPI`提供了web框架，`Pydantic`帮助我们创建数据模型。
 
-## 代码规范
+## 3. 代码规范
 
-### 参考文档
+### 3.1. 参考文档
 
 1. [PEP 8 – Style Guide for Python Code](https://peps.python.org/pep-0008/)
 2. [PEP 257 – Docstring Conventions](https://peps.python.org/pep-0257/)
@@ -23,11 +23,11 @@
 4. [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html)
 5. [Microsoft REST API Guidelines](https://github.com/microsoft/api-guidelines)
 
-### 具体要求
+### 3.2. 具体要求
 
 > 以下加粗的限定词参见[RFC 2119: Key words for use in RFCs to Indicate Requirement Levels](https://www.rfc-editor.org/rfc/rfc2119)
 
-#### Must / Must not
+#### 3.2.1. Must / Must not
 
 - 你**必须**根据`PEP 8`命名类、函数、方法、变量等。
 - 你**必须**根据`PEP 257`为每一个公开的类、函数、方法编写文档。
@@ -36,7 +36,7 @@
 - 你**必须**将代码正确格式化以后再上传。
 - 你**不允许**将密码等敏感信息硬编码进代码中。
 
-#### Should / Should not
+#### 3.2.3. Should / Should not
 
 - 你**应该**根据`PEP 257`为每一个私有的的类、函数、方法编写文档。
 - 你**应该**为函数、方法中必要的地方添加注释。
@@ -52,7 +52,7 @@
   - 如何debug？往哪个方向debug？
 - 你**应该**异步(`async`)地处理网络IO，数据库请求等IO密集型任务。
 
-#### May / May not
+#### 3.2.4. May / May not
 
 - 你**可以**根据`Google Python Style Guide`编写代码。
 - 你**可以**牺牲一些运行效率来提高代码可读性。
