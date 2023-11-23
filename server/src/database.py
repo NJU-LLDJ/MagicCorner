@@ -2,7 +2,7 @@ import asyncio
 import aiomysql
 
 from utils.config import BaseConfig
-from utils.singleton import singleton
+from utils.singleton import SingletonMeta
 
 
 class MySQLConfig(BaseConfig):
@@ -13,8 +13,7 @@ class MySQLConfig(BaseConfig):
     db: str
 
 
-@singleton
-class MySQL:
+class MySQL(metaclass=SingletonMeta):
     def __init__(
         self,
         config: MySQLConfig,
@@ -26,7 +25,12 @@ class MySQL:
 
     def __del__(self):
         if self._pool is not None and not self._pool.closed:
-            self._loop.run_until_complete(self.terminate())
+            self.terminate()
+            raise UserWarning(
+                "MySQL connection pool is terminated but not waited closed."
+                " Please call and await cleanup methods "
+                "(self.close() or self.terminate()) explicitly before exit."
+            )
 
     @property
     def config(self) -> MySQLConfig:

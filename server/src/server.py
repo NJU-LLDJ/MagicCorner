@@ -1,7 +1,7 @@
 import uvicorn
 
 from utils.config import BaseConfig
-from utils.singleton import singleton
+from utils.singleton import SingletonMeta
 
 
 class ServerConfig(BaseConfig):
@@ -9,8 +9,7 @@ class ServerConfig(BaseConfig):
     port: int
 
 
-@singleton
-class Server:
+class Server(metaclass=SingletonMeta):
     def __init__(self, config: ServerConfig):
         self.config = config
 
