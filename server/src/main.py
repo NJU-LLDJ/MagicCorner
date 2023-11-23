@@ -3,9 +3,11 @@ from fastapi import FastAPI
 
 from api import api
 from res import RuntimeResources
+from server import Server, ServerConfig
 from database import MySQL, MySQLConfig
 
 res = RuntimeResources(
+    Server(ServerConfig.from_file("server/config/server.json")),
     MySQL(MySQLConfig.from_file("server/config/db.json")),
 )
 
@@ -29,7 +31,4 @@ async def root() -> str:
 
 
 if __name__ == "__main__":
-    from server import ServerConfig, Server
-
-    server = Server(ServerConfig.from_file("server/config/server.json"))
-    server.run()
+    res.server.run(reload=True)
