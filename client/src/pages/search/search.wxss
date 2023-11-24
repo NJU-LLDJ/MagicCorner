@@ -1,10 +1,11 @@
+/* pages/search/search.wxss */
+
 .container_search{  
   margin-top: 40rpx;
 	display: flex;  
 	flex-direction: row; 
   height: 60rpx;
   width: 750rpx;
-  color: green;
 }  
 
 .search {  
@@ -31,12 +32,3 @@
 	height: 20px;  
 	text-align: center;  
 }  
-
-
-.container3 {
-	border: 1rpx black;
-}
-
-.container3 view {
-	height: 100rpx;
-}

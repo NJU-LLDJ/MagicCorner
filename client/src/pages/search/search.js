@@ -1,17 +1,15 @@
-// pages/try/try.js
+// pages/search/search.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    
+    searchValue: "",
   },
 
-  ToSearch () {
-    wx.navigateTo({
-      url: '../search/search',
-    })
+  search() {
+    console.log(1)
   },
 
   /**
