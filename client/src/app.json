@@ -2,15 +2,15 @@
   "pages": [
     "pages/all/all",
     "pages/index/index",
-    "pages/logs/logs",
     "pages/userinfo/userinfo",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/search/search"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarBackgroundColor": "#008000",
     "navigationBarTitleText": "豆瓣图书",
     "navigationBarTextStyle": "black"
-  },
+    },
   "tabBar": {
     "list":[
       {
@@ -21,7 +21,6 @@
         "pagePath": "pages/userinfo/userinfo",
         "text": "我的"
       }
-
     ]
   },
   "style": "v2",
