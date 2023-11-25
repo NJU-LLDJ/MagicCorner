@@ -3,6 +3,6 @@
   "projectname": "InternetComputing",
   "setting": {
     "compileHotReLoad": true,
-    "urlCheck": true
+    "urlCheck": false
   }
 }

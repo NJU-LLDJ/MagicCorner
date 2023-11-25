@@ -1,5 +1,6 @@
 <!--pages/all/all.wxml-->
 
+<view id="contain">
 <!--搜索框-->
 <view class='container_search'>  
       <view class="search" bindtap="ToSearch">  
@@ -11,12 +12,21 @@
 <!--轮播图-->
 <swiper class="container3" indicator-dots>
 	<swiper-item>
-		<view class="item">A</view>
+		<view class="item">广告位出租</view>
 	</swiper-item>
 	<swiper-item>
-		<view class="item">B</view>
+		<view class="item">广告位出租</view>
 	</swiper-item>
 	<swiper-item>
-		<view class="item">C</view>
+		<view class="item">广告位出租</view>
 	</swiper-item>
 </swiper>
+
+<!--图书-->
+<view class="books_container">
+  <view class="book" wx:for="{{books}}" wx:key="index" wx:for-item="items" bindtap="ToDetail" data-item="{{items}}">
+    <image src="{{items.pic}}"></image>
+    <text class="bookname"> 《{{items.title}}》</text>
+  </view>
+</view>
+</view>

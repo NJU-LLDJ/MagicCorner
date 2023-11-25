@@ -1,11 +1,13 @@
 // pages/try/try.js
+
+var books_data = require("../../res/data/books.js")
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    
+    books : []
   },
 
   ToSearch () {
@@ -14,11 +16,32 @@ Page({
     })
   },
 
+  ToDetail(e) {
+    wx.navigateTo ({
+      url: '../detail/detail?item=' + encodeURIComponent(JSON.stringify(e.currentTarget.dataset.item))
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    this.setData ({
+      books : books_data.BookList
+    })
+    // wx.request({
+    //   url: 'http://101.133.154.219:8000/api/v1/user/1234',
+    //   method:"GET",
+    //   data : {
+    //     d : "杰宝"
+    //   },
+    //   success: (res) => {
+    //     console.log(res.data)
+    //   },
+    //   fail:(res) => {
+    //     console.log("fail")
+    //   }
+    // })
   },
 
   /**
