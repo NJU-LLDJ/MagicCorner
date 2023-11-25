@@ -1,10 +1,15 @@
+#contain {
+  background-color: #fafafa;
+}
+
+/*搜索*/
 .container_search{  
   margin-top: 40rpx;
 	display: flex;  
 	flex-direction: row; 
-  height: 60rpx;
+  height: 80rpx;
   width: 750rpx;
-  color: green;
+  background-color: white;
 }  
 
 .search {  
@@ -13,11 +18,11 @@
   margin-left: 5%;
   margin-right: 5%;  
   width: 90%;
+	height: 60rpx;  
 }  
 
 .search input{  
 	margin-left: 60rpx;  
-	height: 60rpx;  
 	border-radius: 5px;  
 }  
 
@@ -38,5 +43,33 @@
 }
 
 .container3 view {
+  text-align: center;
 	height: 100rpx;
+}
+
+/*图书样式*/ 
+.books_container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 5rpx;
+}
+
+.book {
+  width: 360rpx;
+  height: 536rpx;
+  display: flex;
+  flex-direction: column;
+  margin: 20rpx 5rpx 20rpx 5rpx;
+  align-items: center;
+  background-color: white;
+}
+
+.book image {
+  margin-top: 30rpx;
+  width: 335rpx;
+  height: 450rpx;
+  border-radius: 20rpx;
+}
+.bookname {
+  margin: 25rpx;
 }

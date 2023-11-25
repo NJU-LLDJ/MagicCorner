@@ -5,14 +5,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    book :[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    const {
+      item = {}
+    } = options
+    console.log(JSON.parse(decodeURIComponent(item)))
+      this.setData({
+        book :JSON.parse(decodeURIComponent(item))
+      })
   },
 
   /**
