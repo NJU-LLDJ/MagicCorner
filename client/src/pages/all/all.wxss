@@ -39,12 +39,12 @@
 
 
 .container3 {
-	border: 1rpx black;
+  border: 2px solid black;  
 }
 
-.container3 view {
+.container3 swiper-item {
   text-align: center;
-	height: 100rpx;
+	height: 150rpx;
 }
 
 /*图书样式*/ 
