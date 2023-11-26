@@ -28,6 +28,10 @@ class Singleton(Generic[_T_co]):
             self._instance = self._cls(*args, **kwargs)
         return self._instance
 
+    @property
+    def instance(self) -> _T_co:
+        return self._instance
+
 
 def singleton(cls: type[_T_co]) -> Singleton[_T_co]:
     """Singleton decorator, alias of class Singleton"""
@@ -46,9 +50,17 @@ class SingletonMeta(type):
     ```
     """
 
+    _instance: _T_co | None = None
+
     __slots__ = ()
 
     def __call__(cls: type[_T_co], *args, **kwargs) -> _T_co:
-        if not hasattr(cls, "_instance"):
+        if cls._instance is None:
             cls._instance = super().__call__(*args, **kwargs)
+        return cls._instance
+
+    @property
+    def instance(cls) -> _T_co | None:
+        if cls._instance is None:
+            raise RuntimeWarning("Singleton instance is not initialized")
         return cls._instance
