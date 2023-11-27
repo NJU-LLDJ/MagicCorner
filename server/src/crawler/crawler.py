@@ -2,37 +2,39 @@ import csv
 import re
 import requests
 import bs4 as BeautifulSoup
-headers = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.76"}
-r = requests.get("https://book.douban.com/tag/?view=type&icn=index-sorttags-all",headers=headers)
-soup = BeautifulSoup.BeautifulSoup(r.text,'lxml')
+
+headers = {
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.76"}
+r = requests.get("https://book.douban.com/tag/?view=type&icn=index-sorttags-all", headers=headers)
+soup = BeautifulSoup.BeautifulSoup(r.text, 'lxml')
 # 获取所有 <a> 标签
 all_a_tags = soup.find_all('a')
 
 # 提取所有 <a> 标签的 href 属性以'\tag'开头的链接
-hrefs = [tag.get('href') for tag in all_a_tags if tag.get('href') and tag.get('href').startswith('/tag')] # /tag/小说
-htmls = ["https://book.douban.com" + href  for href in hrefs] # https://book.douban.com/tag/小说
+hrefs = [tag.get('href') for tag in all_a_tags if tag.get('href') and tag.get('href').startswith('/tag')]  # /tag/小说
+htmls = ["https://book.douban.com" + href for href in hrefs]  # https://book.douban.com/tag/小说
 
 # 提取书码
 ids = []
 tags = []
 
 for html in htmls:
-    r = requests.get(html,headers=headers)
+    r = requests.get(html, headers=headers)
     soup = BeautifulSoup.BeautifulSoup(r.text, 'lxml')
     # 获取所有 <a> 标签
     all_a_tags = soup.find_all('a')
     # 提取所有id
     last_segment = html.rsplit('/', 1)[-1]
     for tag in all_a_tags:
-        if(tag.get('href') and tag.get('href').startswith('https://book.douban.com/subject/')):
+        if (tag.get('href') and tag.get('href').startswith('https://book.douban.com/subject/')):
             href = tag.get('href')
             match = re.search(r'/(\d+)/$', href)
             if match:
                 extracted_number = match.group(1)
-                if(len(ids) ==0):
+                if (len(ids) == 0):
                     tags.append(last_segment)
                     ids.append(extracted_number)
-                elif(not extracted_number==ids[-1]):
+                elif (not extracted_number == ids[-1]):
                     ids.append(extracted_number)
                     tags.append(last_segment)
 
