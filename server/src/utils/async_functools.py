@@ -70,7 +70,6 @@ class ProcessSyncExecutor(SyncExecutor):
         Args:
             processes: 进程数，默认为os.cpu_count() or 1
         """
-        # self._pool = Pool(processes)
         self._pool = ProcessPoolExecutor(processes)
 
     def run(
@@ -89,13 +88,6 @@ class ProcessSyncExecutor(SyncExecutor):
         Returns:
             func的返回值
         """
-        # result = self._pool.apply_async(
-        #     func=self._pickle_module.dumps(self._async_run),
-        #     args=(func, *args),
-        #     kwds=kwargs,
-        # )
-        # result.wait()
-        # return result.get()
         fut: Future[_T] = self._pool.submit(self._async_run, *(func, *args), **kwargs)
         return fut.result()
 
