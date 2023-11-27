@@ -1,15 +1,8 @@
 from fastapi import APIRouter
-from pydantic import BaseModel
+
+from model.v1.user import User
 
 user = APIRouter()
-
-
-class User(BaseModel):
-    uid: int
-
-    @classmethod
-    async def get_by_uid(cls, uid: int) -> 'User':
-        return cls(uid=uid)
 
 
 @user.get("/me/")
