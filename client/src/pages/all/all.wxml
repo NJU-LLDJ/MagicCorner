@@ -22,6 +22,13 @@
     </swiper-item>
   </swiper>
 
+  <!--分类滑动条-->
+  <scroll-view class="scroll_container" scroll-x= "true">
+    <text class="scroll_text" wx:for="{{category}}" wx:key="index" wx:for-item="item" bindtap="GetInfo" data-type="{{item}}">
+      {{item}}
+    </text>
+  </scroll-view>
+
   <!--图书-->
   <view class="books_container">
     <view class="book" wx:for="{{books}}" wx:key="index" wx:for-item="items" bindtap="ToDetail" data-item="{{items}}">

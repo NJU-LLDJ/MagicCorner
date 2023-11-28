@@ -7,7 +7,31 @@ Page({
    * 页面的初始数据
    */
   data: {
-    books : []
+    books : [],
+    category : ["推荐", "文学", "流行", "文化", "生活",
+                "经管", "科技"]
+  },
+
+  GetInfo (e) {
+    var d;
+    if (e === "推荐") {
+      d = e;
+    } else {
+      d = e.currentTarget.dataset.type
+    }
+    // wx.request({
+    //   url: 'http://101.133.154.219:8000/api/v1/user/1234',
+    //   method:"GET",
+    //   data : {
+    //     d : "杰宝"
+    //   },
+    //   success: (res) => {
+    //     console.log(res.data)
+    //   },
+    //   fail:(res) => {
+    //     console.log("fail")
+    //   }
+    // })
   },
 
   ToSearch () {
@@ -29,19 +53,7 @@ Page({
     this.setData ({
       books : books_data.BookList
     })
-    // wx.request({
-    //   url: 'http://101.133.154.219:8000/api/v1/user/1234',
-    //   method:"GET",
-    //   data : {
-    //     d : "杰宝"
-    //   },
-    //   success: (res) => {
-    //     console.log(res.data)
-    //   },
-    //   fail:(res) => {
-    //     console.log("fail")
-    //   }
-    // })
+    this.GetInfo("推荐")
   },
 
   /**
