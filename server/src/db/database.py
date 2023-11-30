@@ -46,6 +46,16 @@ class DataBase(BaseDB[Table]):
         self._data[name] = table
         return table
 
+    def get(self, name: str) -> Table | None:
+        """获取表
+        Args:
+            name: 表名
+
+        Returns:
+            表对象
+        """
+        return self._data.get(name, None)
+
     @staticmethod
     def _create_sql(name: str, **field: MySQLDataType) -> str:
         fields = f"{','.join([f'{f} {t}' for f, t in field.items()])}"
