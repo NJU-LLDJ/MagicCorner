@@ -62,14 +62,12 @@ class BaseDB(MutableMapping[str, _DB], ABC):
             kwargs.update(self._config.model_dump())
             if "autocommit" not in kwargs:
                 kwargs.update(autocommit=True)
-            self._async_pool = await aiomysql.create_pool(
-                **self._config.model_dump(), **kwargs
-            )
+            self._async_pool = await aiomysql.create_pool(**kwargs)
 
-    # def __del__(self):
-    #     if self._is_root:
-    #         self.terminate()
-    #         run_thread_sync(self.terminate_async)
+    def __del__(self):
+        if self._is_root:
+            # 没有self.terminate_async()，因为在__del__中不能使用await
+            self.terminate()
 
     def close(self):
         """关闭同步数据库连接"""
@@ -87,6 +85,7 @@ class BaseDB(MutableMapping[str, _DB], ABC):
 
     async def terminate_async(self):
         """终止异步数据库连接"""
+        print("terminate_async")
         if self._is_root and self._async_pool is not None:
             self._async_pool.terminate()
             await self._async_pool.wait_closed()
