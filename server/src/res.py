@@ -1,4 +1,4 @@
-from database import MySQL
+from db import MySQL
 from server import Server
 from utils.singleton import SingletonMeta
 
