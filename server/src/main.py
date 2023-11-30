@@ -16,9 +16,9 @@ res = RuntimeResources(
 # noinspection PyUnusedLocal
 @asynccontextmanager
 async def lifespan(a: FastAPI) -> None:
-    await res.db.connect()
+    await res.db.connect_async()
     yield
-    await res.db.close()
+    await res.db.close_async()
 
 
 # noinspection PyTypeChecker
@@ -32,7 +32,4 @@ async def root() -> str:
 
 
 if __name__ == "__main__":
-    # res.server.run(reload=True)
-    import db.types
-
-    print(db.types.INT.__name__)
+    res.server.run(reload=True)
