@@ -37,14 +37,32 @@
 	text-align: center;  
 }  
 
-
+/*轮播图*/
 .container3 {
-  border: 2px solid black;  
+  border: 2px solid #fafafa;  
 }
 
 .container3 swiper-item {
   text-align: center;
 	height: 150rpx;
+}
+
+/*分类滚动条*/
+.scroll_container {
+  height: 100rpx;
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  background-color: white;
+}
+
+.scroll_text {
+  display: inline-block;
+  margin-left: 5%;
+  margin-right: 5%;
+  height: 100rpx;
+  line-height: 100%;
+  text-align: center;
 }
 
 /*图书样式*/ 
@@ -72,4 +90,9 @@
 }
 .bookname {
   margin: 25rpx;
+  text-align: center;
+  width: 80%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

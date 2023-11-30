@@ -1,1 +1,16 @@
 /* pages/detail/detail.wxss */
+.title{
+  font-size: 30px;
+  margin-bottom: 10px;
+  color: black;
+}
+.box{
+  border: 1px solid silver;
+  margin: 0.5rpx;
+  padding: 0.5rpx;
+}
+.box2{
+  border: 2px solid black;
+  margin: 20rpx;
+  padding: 20rpx;
+}

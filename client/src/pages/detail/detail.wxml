@@ -2,3 +2,26 @@
 <view>
   <image src="{{book.pic}}"></image>
 </view>
+<text class="title">
+{{book.title}}
+</text>
+<view class="box"><text>{{book.card_subtitle}}/{{book.pages}}页/id:{{book.id}}
+</text>
+</view>
+
+<text>译者：{{book.translator}}
+</text>
+<view class="box2"><text class="title">内容介绍:</text><text>
+{{book.intro}}
+</text>
+</view>
+<view class="box2"><text class="title">作者介绍:</text><text>
+{{book.author_intro}}
+</text>
+</view>
+
+
+<text>
+{{book.catalog}}
+</text>
+<switch checked="" bindchange=""/>收藏
