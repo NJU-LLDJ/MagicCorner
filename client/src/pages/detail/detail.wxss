@@ -14,3 +14,17 @@
   margin: 20rpx;
   padding: 20rpx;
 }
+.saveBtn { 
+  width: 50% !important; 
+  float:left;
+  font-weight: 100;
+ }
+ .submitBtn { 
+  width: 50% !important;
+  float:right;
+ }
+.s_view{
+  bottom: 0rpx; 
+  position: fixed;
+  width: 100%;
+}
