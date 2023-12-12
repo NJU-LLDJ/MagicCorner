@@ -1,7 +1,8 @@
 import csv
 import re
-import requests
+
 import bs4
+import requests
 
 user_agent = " ".join(
     [
@@ -31,7 +32,7 @@ htmls = [
 ]  # https://book.douban.com/tag/小说
 
 # 提取书码
-ids = []
+ids: list[str] = []
 tags = []
 
 for html in htmls:
