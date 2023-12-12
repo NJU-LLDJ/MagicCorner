@@ -1,7 +1,7 @@
 import json
 from _typeshed import OpenBinaryModeReading, OpenTextModeReading, StrOrBytesPath
 from types import ModuleType
-from typing import Any, AnyStr, IO, Optional, ParamSpec, Protocol, Self, TypeVar
+from typing import Any, IO, Optional, ParamSpec, Protocol, Self, TypeVar
 
 from pydantic import BaseModel
 
@@ -13,7 +13,7 @@ class SupportsLoad(Protocol[_P, _D_co]):
     """支持load方法的协议"""
 
     @staticmethod
-    def load(file: IO[AnyStr], *args: _P.args, **kwargs: _P.kwargs) -> _D_co:
+    def load(file: IO[str | bytes], *args: _P.args, **kwargs: _P.kwargs) -> _D_co:
         """
         从文件中加载数据
 
