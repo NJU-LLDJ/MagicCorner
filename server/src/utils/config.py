@@ -1,7 +1,7 @@
 import json
-from _typeshed import OpenBinaryModeReading, OpenTextModeReading, StrOrBytesPath
+from os import PathLike
 from types import ModuleType
-from typing import Any, IO, Optional, ParamSpec, Protocol, Self, TypeVar
+from typing import Any, IO, Literal, Optional, ParamSpec, Protocol, Self, TypeVar
 
 from pydantic import BaseModel
 
@@ -32,8 +32,8 @@ class BaseConfig(BaseModel):
     @classmethod
     def load(
         cls,
-        path: StrOrBytesPath,
-        mode: OpenTextModeReading | OpenBinaryModeReading = "r",
+        path: str | bytes | PathLike[str] | PathLike[bytes],
+        mode: Literal["r", "rb"] = "r",
         encoding: Optional[str] = None,
         errors: Optional[str] = None,
         serializer: ModuleType | SupportsLoad[_P, _D_co] = json,
