@@ -125,6 +125,7 @@ class DType(Generic[_V, *_Args]):
         return self._value
 
     def __set__(self, instance: object, value: Optional[_V]):
+        self._validate_value(value)
         self._value = value
 
     @classmethod
@@ -164,9 +165,8 @@ class DType(Generic[_V, *_Args]):
         else:
             if not isinstance(value, self.real_type()):
                 raise TypeError(
-                    f"Field {self._field} should be"
-                    f" an instance of {self.real_type()},"
-                    f" got {value}, type {type(self._value)}"
+                    f"Field {self._field} should be an instance of {self.real_type()},"
+                    f" got {value}, type {type(value)}"
                 )
         return True
 
