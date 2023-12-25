@@ -8,9 +8,22 @@ class DTypeOption(Generic[_V]):
     """
     MySQL数据类型选项，用于描述MySQL数据类型，以大写形式输出
 
-    例如：
-    >>> o = DTypeOption(auto_increment=True, default=0, not_null=True, primary_key=True)
-    >>> assert str(o) == "AUTO_INCREMENT DEFAULT 0 NOT NULL PRIMARY KEY"
+    Examples:
+        - 无选项
+        >>> o = DTypeOption()
+        >>> assert str(o) == ""
+
+        - 有预设选项
+        >>> o = DTypeOption(auto_increment=True, default=0, not_null=True, primary_key=True)
+        >>> assert str(o) == "AUTO_INCREMENT DEFAULT 0 NOT NULL PRIMARY KEY"
+
+        - 有额外选项
+        >>> o = DTypeOption("UNSIGNED", "ZEROFILL")
+        >>> assert str(o) == "UNSIGNED ZEROFILL"
+
+        - 有预设选项和额外选项
+        >>> o = DTypeOption("UNSIGNED", "ZEROFILL", auto_increment=True, default=0, not_null=True, primary_key=True)
+        >>> assert str(o) == "AUTO_INCREMENT DEFAULT 0 NOT NULL PRIMARY KEY UNSIGNED ZEROFILL"
     """
 
     __slots__ = ("auto_increment", "default", "not_null", "primary_key", "extras")
@@ -26,12 +39,13 @@ class DTypeOption(Generic[_V]):
         """
         初始化MySQL数据类型选项
         Args:
-            *extras: 关键字参数中未提到的选项，如UNSIGNED、ZEROFILL等
+            *extras: 关键字参数中未提到的选项，不区分大小写，会被转换为大写，
+                如"UNSIGNED"、"ZEROFILL"等.
         Keyword Args:
-            auto_increment: 是否自增，默认为False
-            default: 默认值，默认为None
-            not_null: 是否非空，默认为False
-            primary_key: 是否主键，默认为False
+            auto_increment: 是否自增，默认为False.
+            default: 默认值，默认为None.
+            not_null: 是否非空，默认为False.
+            primary_key: 是否主键，默认为False.
         """
         self.auto_increment = auto_increment
         self.default = default
@@ -72,10 +86,16 @@ class DType(Generic[_V, *_Args]):
         return cls.__name__.upper()
 
     @classmethod
-    def real_type(cls) -> type[_V]:
+    def vtype(cls) -> type[_V]:
         """在Python中实际使用的数据类型"""
         # noinspection PyUnresolvedReferences
         return cls.__orig_bases__[0].__args__[0]  # type: ignore
+
+    @classmethod
+    def args_type(cls) -> tuple[type]:
+        """数据类型参数类型"""
+        # noinspection PyUnresolvedReferences
+        return cls.__orig_bases__[0].__args__[1:]  # type: ignore
 
     def __init__(
         self,
@@ -88,9 +108,9 @@ class DType(Generic[_V, *_Args]):
             args: 数据类型参数，如DECIMAL(10, 2)中的10和2
             option: 数据类型选项，默认为None
         """
-        if self.__class__ is DType:
+        if self.__class__ in (DType, NoArgsDType):
             raise TypeError(
-                "DType shouldn't be instantiated directly."
+                "DType and NoArgsDType shouldn't be instantiated directly."
                 " Use attributes of DTypes instead."
             )
         self._validate_args(args)
@@ -141,7 +161,7 @@ class DType(Generic[_V, *_Args]):
         """
         # 1. 获取参数类型元组，如DType[int, str, float]的参数类型元组为(str, float)
         # noinspection PyUnresolvedReferences
-        expect: tuple[type] = cls.__orig_bases__[0].__args__[1:]  # type: ignore
+        expect: tuple[type] = cls.args_type()
         # 2. 验证参数个数是否正确
         if len(args) != len(expect):
             raise ValueError(
@@ -152,8 +172,8 @@ class DType(Generic[_V, *_Args]):
         for i, (arg, arg_type) in enumerate(zip(args, expect)):  # type: ignore
             if not isinstance(arg, arg_type):
                 raise TypeError(
-                    f"Argument {i} of {cls.dtype()} should be "
-                    f"an instance of {arg_type}, got {arg}, type {type(arg)}"
+                    f"Argument {i} of {cls.dtype()} should be an instance"
+                    f" of {arg_type}, got {arg}, type {type(arg).__qualname__}"
                 )
         return True
 
@@ -163,10 +183,11 @@ class DType(Generic[_V, *_Args]):
             if self._option is not None and self._option.not_null:
                 raise ValueError(f"Field {self._field} cannot be None")
         else:
-            if not isinstance(value, self.real_type()):
+            if not isinstance(value, self.vtype()):
                 raise TypeError(
-                    f"Field {self._field} should be an instance of {self.real_type()},"
-                    f" got {value}, type {type(value)}"
+                    f"Field {self._field} should be an instance of "
+                    f"{self.vtype().__qualname__}, got {value},"
+                    f" type {type(value).__qualname__}"
                 )
         return True
 
